@@ -1,4 +1,6 @@
-package fr.wonder.commons.math;
+package fr.wonder.commons.math.vectors;
+
+import fr.wonder.commons.math.Mathf;
 
 public class Vec2 {
 	
@@ -49,10 +51,11 @@ public class Vec2 {
 	
 	/**
 	 * Calculate the squared length of this vector,
-	 * <br>length^2 = x^2 + y^2
+	 * <br>length^2 = x^2 + y^2 = dot(this,this)
 	 * @return the squared length of this vector instance
 	 */
 	public float lengthSquared() { return x*x + y*y; }
+	
 	/**
 	 * Calculate the length of this vector,
 	 * <br>length = sqrt( x^2 + y^2 )
@@ -76,6 +79,14 @@ public class Vec2 {
 	 * @see Mathf#round(Vec2) alternate rounding method
 	 */
 	public Vec2i round() { return new Vec2i((int) x, (int) y); }
+	
+	public static float dot(Vec2 u, Vec2 v) {
+		return u.x*v.x+u.y*v.y;
+	}
+	
+	public float dot(Vec2 v) {
+		return dot(this, v);
+	}
 	
 	/**
 	 * Returns true if the two objects are both Vec2 and each of their
