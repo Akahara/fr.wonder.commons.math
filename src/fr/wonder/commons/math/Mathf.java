@@ -52,15 +52,8 @@ public class Mathf {
 		return table;
 	}
 	
-	/**
-	 * Rounds floats at the nearest int value. Calculated as (int) f+.5 .
-	 * Then, if f was negative the result is reduced by 1, this way -.1 will
-	 * be converted to -1 and not 0.
-	 * @param f the float to round
-	 * @return the corresponding integer value
-	 */
-	public static int roundFloat(float f) {
-		return (int) (f+.5f) + (f<0?-1:0);
+	public static int roundToZero(float f) {
+		return (int) (f+.5f);
 	}
 	
 	/**
@@ -69,7 +62,7 @@ public class Mathf {
 	 * @return the rounded vector
 	 * @see Vec2#round() alternate rounding method
 	 */
-	public static Vec2i round(Vec2 v) { return new Vec2i(Mathf.roundFloat(v.x), Mathf.roundFloat(v.y)); }
+	public static Vec2i round(Vec2 v) { return new Vec2i(roundToZero(v.x), roundToZero(v.y)); }
 	
 	/**
 	 * Returns the factorial of a number, which is defined as :
@@ -449,6 +442,14 @@ public class Mathf {
 	public static Vec4 clamp(Vec4 v, float min, float max) { return new Vec4(clamp(v.x, min, max), clamp(v.y, min, max), clamp(v.z, min, max), clamp(v.w, min, max)); }
 	public static Vec4i clamp(Vec4i v, Vec4i min, Vec4i max) { return new Vec4i(clamp(v.x, min.x, max.x), clamp(v.y, min.y, max.y), clamp(v.z, min.z, max.z), clamp(v.w, min.w, max.w)); }
 	public static Vec4i clamp(Vec4i v, int min, int max) { return new Vec4i(clamp(v.x, min, max), clamp(v.y, min, max), clamp(v.z, min, max), clamp(v.w, min, max)); }
+
+	public static int ceil(float f) {
+		return (int) Math.ceil(f);
+	}
+	
+	public static int floor(float f) {
+		return (int) f;
+	}
 	
 	public static Vec2i random2i(int min, int max) {
 		return new Vec2i((int) (random()*(max-min)+min), (int) (random()*(max-min)+min));
