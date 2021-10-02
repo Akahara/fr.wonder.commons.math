@@ -1,4 +1,6 @@
-package fr.wonder.commons.math;
+package fr.wonder.commons.math.vectors;
+
+import fr.wonder.commons.math.Mathf;
 
 public class Vec4i {
 

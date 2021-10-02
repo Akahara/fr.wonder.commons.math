@@ -1,4 +1,6 @@
-package fr.wonder.commons.math;
+package fr.wonder.commons.math.vectors;
+
+import fr.wonder.commons.math.Mathf;
 
 public class Vec2i {
 	
@@ -65,16 +67,6 @@ public class Vec2i {
 	 */
 	public float lengthSquared() { return x*x + y*y; }
 	/**
-	 * Calculate the pseudo-length of this vector,
-	 * <br><code>l = x+y</code>
-	 * <br>This may be used when dealing with one-directional vector
-	 * to avoid using {@link #length()} and having to perform a square root
-	 * @return x+y
-	 */
-	public int sumCoords() {
-		return x+y;
-	}
-	/**
 	 * Calculate the length of this vector,
 	 * <br>length = sqrt( x^2 + y^2 )
 	 * @return the length of this vector instance
@@ -104,15 +96,6 @@ public class Vec2i {
 	@Override
 	public String toString() {
 		return String.format("[%+.2e %+.2e]", (float)x, (float)y);
-	}
-	
-	/**
-	 * Returns a non-formated string composed of the 2 components
-	 * of this vector
-	 * @return The result of <code>x+" "+y</code>
-	 */
-	public String toSimpleString() {
-		return x + " " + y;
 	}
 	
 }

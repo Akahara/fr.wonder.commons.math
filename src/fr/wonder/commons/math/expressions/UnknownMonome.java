@@ -46,17 +46,17 @@ class UnknownMonome {
 	@Override
 	public String toString() {
 		if(unknowns.size() == 0)
-			return Mathf.getFloatFormat(realCoeficient);
+			return String.format("%.2f", realCoeficient);
 		StringBuilder sb = new StringBuilder();
 		if(realCoeficient == -1)
 			sb.append('-');
 		else if(realCoeficient != 1)
-			sb.append(Mathf.getFloatFormat(realCoeficient));
+			sb.append(String.format("%.2f", realCoeficient));
 		for(ExpUnknown exp : unknowns) {
 			sb.append(exp.unknown);
 			if(exp.exponent != 1) {
 				sb.append('^');
-				sb.append(Mathf.getFloatFormat(exp.exponent));
+				sb.append(String.format("%.2f", exp.exponent));
 			}
 		}
 		return sb.toString();

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.wonder.commons.math.Mathf;
-import fr.wonder.commons.math.Vec2i;
+import fr.wonder.commons.math.vectors.Vec2i;
 
 public class Expressions {
 	

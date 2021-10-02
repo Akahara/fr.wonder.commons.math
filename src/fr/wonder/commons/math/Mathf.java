@@ -2,10 +2,16 @@ package fr.wonder.commons.math;
 
 import java.util.Random;
 
+import fr.wonder.commons.math.vectors.Vec2;
+import fr.wonder.commons.math.vectors.Vec2i;
+import fr.wonder.commons.math.vectors.Vec3;
+import fr.wonder.commons.math.vectors.Vec4;
+import fr.wonder.commons.math.vectors.Vec4i;
+
 public class Mathf {
 	
 	/** Approximated value of PI */
-	public static final float PI = 3.14159f;
+	public static final float PI = (float) Math.PI;
 	public static final float GOLDEN_RATIO_CONJ = .61803398f;
 	
 	private static class SinTableHolder {
@@ -73,7 +79,7 @@ public class Mathf {
 	 */
 	public static int fact(int i) {
 		int l = 1;
-		for(int j = 1; j <= i; j++)
+		for(int j = 2; j <= i; j++)
 			l *= j;
 		return l;
 	}
@@ -174,7 +180,7 @@ public class Mathf {
 	 * @return the image of x by the sigmoid function
 	 */
 	public static float sigmoid(float x) {
-		return 1/(1+exp(-x));
+		return 1f/(1f+exp(-x));
 	}
 	
 	/**
@@ -184,7 +190,7 @@ public class Mathf {
 	 * @return the image of x by the sigmoid prime function
 	 */
 	public static float sigmoidPrime(float y) {
-		return sigmoid(y)*(1-sigmoid(y));
+		return sigmoid(y)*(1f-sigmoid(y));
 	}
 	
 	/**
@@ -255,18 +261,6 @@ public class Mathf {
 	 * Returns whether a string represents a float. The float may be written
 	 * using digits 0 to 9, a single decimal dot and a sign.
 	 * @param s the string to parse
-	 * @param start the substring starting index
-	 * @param end the substring ending index
-	 * @return whether the string could be parsed as a float
-	 */
-	public static boolean isFloatString(String s, int start, int end) {
-		return isFloatString(s.substring(start, end));
-	}
-	
-	/**
-	 * Returns whether a string represents a float. The float may be written
-	 * using digits 0 to 9, a single decimal dot and a sign.
-	 * @param s the string to parse
 	 * @return whether the string could be parsed as a float
 	 */
 	public static boolean isFloatString(String s) {
@@ -286,28 +280,6 @@ public class Mathf {
 			e.printStackTrace();
 			return -1;
 		}
-	}
-
-	/**
-	 * Returns the float value a string represents. The float may be written
-	 * using digits 0 to 9, a single decimal dot and a sign.
-	 * @param s the string to parse
-	 * @param start the substring starting index
-	 * @param end the substring ending index
-	 * @return the float value corresponding, or -1 if it could not be parsed
-	 */
-	public static float parseFloat(String s, int start, int end) {
-		return parseFloat(s.substring(start, end));
-	}
-	
-	/**
-	 * Creates and return a string representing a float. The string will have
-	 * only 2 decimals.
-	 * @param f the float to get a string from
-	 * @return the formated string
-	 */
-	public static String getFloatFormat(float f) {
-		return String.format(".2f", f);
 	}
 	
 	/**
@@ -374,6 +346,27 @@ public class Mathf {
 		return m;
 	}
 	
+	public static int minIndex(int... ints) {
+		if(ints == null || ints.length == 0)
+			throw new IllegalArgumentException("Null or empty array given.");
+		int i = 0, m = ints[0];
+		for(int j = 0; j < ints.length; j++)
+			if(ints[j] < m)
+				m = ints[i = j];
+		return i;
+	}
+	
+	public static float minIndex(float... floats) {
+		if(floats == null || floats.length == 0)
+			throw new IllegalArgumentException("Null or empty array given.");
+		int i = 0;
+		float m = floats[0];
+		for(int j = 0; j < floats.length; j++)
+			if(floats[j] < m)
+				m = floats[i = j];
+		return i;
+	}
+	
 	public static Vec2i min(Vec2i v, Vec2i m) { return new Vec2i(min(v.x, m.x), min(v.y, m.y)); }
 	public static Vec2i min(Vec2i v, int m) { return new Vec2i(min(v.x, m), min(v.y, m)); }
 	public static Vec2 min(Vec2 v, Vec2 m) { return new Vec2(min(v.x, m.x), min(v.y, m.y)); }
@@ -392,8 +385,8 @@ public class Mathf {
 	
 	public static int max(int a, int b) { return a > b ? a : b; }
 	public static float max(float a, float b) { return a > b ? a : b; }
-	
-	public static int max(int[] ints) {
+
+	public static int max(int... ints) {
 		if(ints == null || ints.length == 0)
 			throw new IllegalArgumentException("Null or empty array given.");
 		int m = ints[0];
@@ -403,7 +396,7 @@ public class Mathf {
 		return m;
 	}
 	
-	public static float max(float[] floats) {
+	public static float max(float... floats) {
 		if(floats == null || floats.length == 0)
 			throw new IllegalArgumentException("Null or empty array given.");
 		float m = floats[0];
@@ -411,6 +404,27 @@ public class Mathf {
 			if(f > m)
 				m = f;
 		return m;
+	}
+	
+	public static int maxIndex(int... ints) {
+		if(ints == null || ints.length == 0)
+			throw new IllegalArgumentException("Null or empty array given.");
+		int i = 0, m = ints[0];
+		for(int j = 0; j < ints.length; j++)
+			if(ints[j] > m)
+				m = ints[i = j];
+		return i;
+	}
+	
+	public static float maxIndex(float... floats) {
+		if(floats == null || floats.length == 0)
+			throw new IllegalArgumentException("Null or empty array given.");
+		int i = 0;
+		float m = floats[0];
+		for(int j = 0; j < floats.length; j++)
+			if(floats[j] > m)
+				m = floats[i = j];
+		return i;
 	}
 	
 	public static Vec2i max(Vec2i v, Vec2i m) { return new Vec2i(max(v.x, m.x), max(v.y, m.y)); }
@@ -482,9 +496,19 @@ public class Mathf {
 		return new Vec4(random()*(max-min)+min, random()*(max-min)+min,
 						random()*(max-min)+min, random()*(max-min)+min);
 	}
-	public static Vec4i random4i(int min, int max) {
-		return new Vec4i((int) (random()*(max-min)+min), (int) (random()*(max-min)+min),
-				(int) (random()*(max-min)+min), (int) (random()*(max-min)+min));
+		
+	public static int sum(int... ints) {
+		int s = 0;
+		for(int i : ints)
+			s += i;
+		return s;
+	}
+	
+	public static float sum(float... floats) {
+		float s = 0;
+		for(float f : floats)
+			s += f;
+		return s;
 	}
 	
 }
