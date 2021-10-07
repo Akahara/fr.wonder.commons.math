@@ -105,24 +105,40 @@ public class Mathf {
 	}
 	
 	/**
-	 * Returns the base raised to the exponent. This function uses an approximation that can be found
-	 * <a href=https://codingforspeed.com/using-faster-integer-power-in-java/>here</a>.
+	 * Returns the base raised to the exponent, defaults to the java.lang.Math
+	 * implementation and converts the result to a float.
 	 * @param base the base
 	 * @param exp the exponent
 	 * @return base^exp
 	 */
 	public static float pow(float base, float exp) {
-		return (float)Math.pow(base, exp);
+		return (float) Math.pow(base, exp);
 	}
 	
 	/**
 	 * Unfortunately there are yet no better implementation of sqrt is this project
-	 * than redirecting to {@link Math#sqrt(double)}
+	 * than redirecting to {@link Math#sqrt(double)}, though {@link #invSqrt(float)}
+	 * may be used instead of dividing by the result of this function.
 	 * @param f the float to calculate the float of
 	 * @return the square root of f
 	 */
 	public static float sqrt(float f) {
 		return (float) Math.sqrt(f);
+	}
+	
+	/**
+	 * Fast inverse square root, quake 3 algorithm
+	 * (<a href='https://en.wikipedia.org/wiki/Fast_inverse_square_root'>see here</a>)
+	 * @param f a float
+	 * @return 1/sqrt(f)
+	 */
+	public static float invSqrt(float f) {
+	    float f2 = 0.5f * f;
+	    int i = Float.floatToIntBits(f);
+	    i = 0x5f3759df - (i >> 1);
+	    f = Float.intBitsToFloat(i);
+	    f *= (1.5f - f2 * f * f);
+	    return f;
 	}
 	
 	/**
@@ -261,23 +277,22 @@ public class Mathf {
 	 * Returns whether a string represents a float. The float may be written
 	 * using digits 0 to 9, a single decimal dot and a sign.
 	 * @param s the string to parse
-	 * @return whether the string could be parsed as a float
+	 * @return whether or not the string can be parsed as a float
 	 */
 	public static boolean isFloatString(String s) {
 		return s.matches("[+-]?(\\d+(\\.\\d*)?|\\.\\d+)");
 	}
 	
 	/**
-	 * Returns the float value a string represents. The float may be written
-	 * using digits 0 to 9, a single decimal dot and a sign.
+	 * Returns the float value a string represents. This calls Float#parseFloat
+   * and silently ignores errors, returning -1 instead.
 	 * @param s the string to parse
 	 * @return the float value corresponding, or -1 if it could not be parsed
 	 */
 	public static float parseFloat(String s) {
 		try {
 			return Float.parseFloat(s);
-		} catch(NumberFormatException e) {
-			e.printStackTrace();
+		} catch(NumberFormatException x) {
 			return -1;
 		}
 	}

@@ -83,6 +83,11 @@ public class Vec4i {
 				z == ((Vec4i) obj).z && w == ((Vec4i) obj).w;
 	}
 	
+	@Override
+	public int hashCode() {
+		return ((((31+x)*31+y)*31+z)*31+w);
+	}
+	
 	/**
 	 * Returns a string of format [x, y, z, w] with xyzw in scientific
 	 * notations with 2 decimals.

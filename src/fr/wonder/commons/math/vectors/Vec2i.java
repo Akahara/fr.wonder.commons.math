@@ -88,6 +88,11 @@ public class Vec2i {
 				x == ((Vec2i) obj).x && y == ((Vec2i) obj).y;
 	}
 	
+	@Override
+	public int hashCode() {
+		return (31+x)*31+y;
+	}
+	
 	/**
 	 * Returns a string of format [x, y] with xy in scientific
 	 * notations with 2 decimals.

@@ -98,6 +98,12 @@ public class Vec4 {
 				z == ((Vec4) obj).z && w == ((Vec4) obj).w;
 	}
 	
+	@Override
+	public int hashCode() {
+		return (((31+Float.floatToIntBits(x))*31+Float.floatToIntBits(y))*31
+				+Float.floatToIntBits(z))*31+Float.floatToIntBits(w);
+	}
+	
 	/**
 	 * Returns a string of format [x, y, z, w] with xyzw in scientific
 	 * notations with 2 decimals.

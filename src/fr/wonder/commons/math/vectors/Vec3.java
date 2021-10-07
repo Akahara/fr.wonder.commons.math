@@ -111,6 +111,11 @@ public class Vec3 {
 				x == ((Vec3) obj).x && y == ((Vec3) obj).y && z == ((Vec3) obj).z;
 	}
 	
+	@Override
+	public int hashCode() {
+		return ((31+Float.floatToIntBits(x))*31+Float.floatToIntBits(y))*31+Float.floatToIntBits(z);
+	}
+	
 	/**
 	 * Returns a string of format [x, y, z] with xyz in scientific
 	 * notations with 2 decimals.

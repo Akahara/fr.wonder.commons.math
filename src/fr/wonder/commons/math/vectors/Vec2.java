@@ -104,6 +104,11 @@ public class Vec2 {
 				x == ((Vec2) obj).x && y == ((Vec2) obj).y;
 	}
 	
+	@Override
+	public int hashCode() {
+		return (31+Float.floatToIntBits(x))*31+Float.floatToIntBits(y);
+	}
+	
 	/**
 	 * Returns a string of format [x, y] with xy in scientific
 	 * notations with 2 decimals.
