@@ -12,6 +12,7 @@ public class Mathf {
 	
 	/** Approximated value of PI */
 	public static final float PI = (float) Math.PI;
+	public static final float TWOPI = 2*PI;
 	public static final float GOLDEN_RATIO_CONJ = .61803398f;
 	
 	private static class SinTableHolder {
@@ -30,13 +31,17 @@ public class Mathf {
 	
 	/**
 	 * Creates a new sin table used by both sin and cos functions.
-	 * A sin table is a number of pre-calculated sines which can be looked up
-	 * to avoid calculating actual sines a big number of times. This comes
-	 * with a margin of error, the bigger the table the lower the error and the
-	 * greater the first calculation cost. This method uses an approximation of
-	 * the sin function. For a size of 360 the maximum error is .018<br>
+	 * <p>
+	 * A sin table is a number of pre-calculated sines which can be looked up to
+	 * avoid calculating actual sines a big number of times. This comes with a
+	 * margin of error, the bigger the table the lower the error and the greater the
+	 * first calculation cost.
+	 * <p>
+	 * This method uses an approximation of the sin function. For a size of 360 the
+	 * maximum error is .018<br>
 	 * By default the class is loaded with a sin table of size 360.<br>
 	 * The table size is rounded to the upper multiple of two if not already one.
+	 * 
 	 * @param tableSize the size of the sine table
 	 */
 	public static float[] sinTable(int tableSize) {
@@ -128,7 +133,7 @@ public class Mathf {
 	
 	/**
 	 * Fast inverse square root, quake 3 algorithm
-	 * (<a href='https://en.wikipedia.org/wiki/Fast_inverse_square_root'>see here</a>)
+	 * @see <a href='https://en.wikipedia.org/wiki/Fast_inverse_square_root'>The source for this function</a>
 	 * @param f a float
 	 * @return 1/sqrt(f)
 	 */
@@ -142,7 +147,8 @@ public class Mathf {
 	}
 	
 	/**
-	 * Returns the exponential of a number, this method uses an approximation that can be found
+	 * Returns the exponential of a number.
+	 * <p>This method uses an approximation that can be found
 	 * <a href=https://martin.ankerl.com/2007/02/11/optimized-exponential-functions-for-java>
 	 * here</a>. This is slower than {@link #expf(double)} but more precise (around 1.5e-5).
 	 * @param x the exponent
@@ -167,7 +173,8 @@ public class Mathf {
 	}
 	
 	/**
-	 * Returns the natural logarithm of a number, this method uses an approximation that can be found
+	 * Returns the natural logarithm of a number.
+	 * <p>This method uses an approximation that can be found
 	 * <a href=https://martin.ankerl.com/2007/02/11/optimized-exponential-functions-for-java>
 	 * here</a>.
 	 * @param f the float value
@@ -180,7 +187,7 @@ public class Mathf {
 	
 	/**
 	 * Returns the logarithm in a specific base of a number.
-	 * The logarithm for non-e base can be easily calculated as <code>log(f,b) = ln(f)/ln(b)</code>
+	 * <p>The logarithm for non-e base can be easily calculated as <code>log(f,b) = ln(f)/ln(b)</code>
 	 * @param f the float value
 	 * @param base the base of the logarithm
 	 * @return the logarithm of <code>f</code> in base <code>base</code>
@@ -191,12 +198,35 @@ public class Mathf {
 	
 	/**
 	 * Applies the sigmoid (or logistic) function.
-	 * The expression of the sigmoid function is : <code>s(x) = 1/(1+e^(-x))</code>
+	 * <p>The expression of the sigmoid function is : <code>s(x) = 1/(1+e^(-x))</code>
 	 * @param x the float value
 	 * @return the image of x by the sigmoid function
 	 */
 	public static float sigmoid(float x) {
 		return 1f/(1f+exp(-x));
+	}
+
+	/**
+	 * Smoothstep function, as defined <a href="https://en.wikipedia.org/wiki/Smoothstep">here</a>.
+	 * @param edge0 first edge
+	 * @param edge1 second edge
+	 * @param x the float to evaluate the smoothstep function at
+	 * @return the evaluation of the smoothstep function at x, in range [0,1]
+	 */
+	public static float smoothstep(float edge0, float edge1, float x) {
+		x = clamp((x - edge0) / (edge1 - edge0), 0, 1); 
+		return x * x * (3 - 2 * x);
+	}
+	
+	/**
+	 * Step function.
+	 * <p>When evaluated at {@code edge}, this method returns 1.
+	 * @param edge the step edge
+	 * @param x the application value
+	 * @return 0 if x < edge, 1 otherwise
+	 */
+	public static float step(float edge, float x) {
+		return x < edge ? 0 : 1;
 	}
 	
 	/**
@@ -244,7 +274,7 @@ public class Mathf {
 	/**
 	 * Calculate the modulo of 2 numbers, which is the only value x between
 	 * 0 and m which is such that <i>f = m*k + x</i> with k a signed integer.
-	 * This method is different of the % operator in that it will never return
+	 * <p>This method is different of the % operator in that it will never return
 	 * a negative number : <i>-4%3 = -1</i> however <i>mod(-4, 3) = +2</i>
 	 * @param f the base
 	 * @param m the modulo
@@ -260,7 +290,7 @@ public class Mathf {
 	/**
 	 * Calculate the modulo of 2 numbers, which is the only value x between
 	 * 0 and m which is such that <i>f = m*k + x</i> with k a signed integer.
-	 * This method is different of the % operator in that it will never return
+	 * <p>This method is different of the % operator in that it will never return
 	 * a negative number : <i>-4%3 = -1</i> however <i>mod(-4, 3) = +2</i>
 	 * @param f the base
 	 * @param m the modulo
@@ -285,7 +315,7 @@ public class Mathf {
 	
 	/**
 	 * Returns the float value a string represents. This calls Float#parseFloat
-   * and silently ignores errors, returning -1 instead.
+	 * and silently ignores errors, returning -1 instead.
 	 * @param s the string to parse
 	 * @return the float value corresponding, or -1 if it could not be parsed
 	 */
@@ -307,7 +337,7 @@ public class Mathf {
 	}
 	
 	public static float randomGaussian() {
-		return (float)RandomHolder.random.nextGaussian();
+		return (float) RandomHolder.random.nextGaussian();
 	}
 
 	public static int randomInRange(int min, int max) {
@@ -475,9 +505,13 @@ public class Mathf {
 	public static int ceil(float f) {
 		return (int) Math.ceil(f);
 	}
-	
+
 	public static int floor(float f) {
 		return (int) f;
+	}
+	
+	public static float fract(float f) {
+		return f - (int) f;
 	}
 	
 	public static Vec2i random2i(int min, int max) {
