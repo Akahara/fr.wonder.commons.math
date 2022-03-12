@@ -240,6 +240,19 @@ public class Mathf {
 	}
 	
 	/**
+	 * Return the linear interpolation at t between x and y.
+	 * <p>
+	 * The formula used is <code>(1-t)x+ty</code>
+	 * @param x first value to interpolate with
+	 * @param y second value to interpolate with
+	 * @param t the fraction to interpolate with
+	 * @return the interpolated value
+	 */
+	public static float lerp(float x, float y, float t) {
+		return (1-t)*x+t*y;
+	}
+	
+	/**
 	 * Calculates a cosine using a pre-calculated sine table, precision is not
 	 * perfect but the maximum delta between this method and Math.cos is around .018
 	 * <br>This method is quite faster than using Math.cos though.
@@ -346,6 +359,10 @@ public class Mathf {
 	
 	public static float randomInRange(float min, float max) {
 		return random()*(max-min)+min;
+	}
+	
+	public static float randomAngle() {
+		return random()*TWOPI;
 	}
 	
 	public static Vec2i mod(Vec2i v, Vec2i m) { return new Vec2i(mod(v.x, m.x), mod(v.y, m.y)); }
@@ -511,7 +528,7 @@ public class Mathf {
 	}
 	
 	public static float fract(float f) {
-		return f - (int) f;
+		return mod(f, 1);
 	}
 	
 	public static Vec2i random2i(int min, int max) {
