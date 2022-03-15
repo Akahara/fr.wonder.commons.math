@@ -88,6 +88,14 @@ public class Vec2 {
 		return dot(this, v);
 	}
 	
+	public float getPolarTheta() {
+		return Mathf.atan2(x, y);
+	}
+	
+	public static Vec2 fromPolar(float r, float theta) {
+		return new Vec2(Mathf.cos(theta)*r, Mathf.sin(theta)*r);
+	}
+	
 	/**
 	 * Returns true if the two objects are both Vec2 and each of their
 	 * components have the same value. If obj is null this will return

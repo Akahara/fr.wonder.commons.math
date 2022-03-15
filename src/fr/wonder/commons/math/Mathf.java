@@ -285,6 +285,16 @@ public class Mathf {
 	}
 	
 	/**
+	 * Returns the polar angle of a point in Cartesian coordinates.
+	 * @param x first coordinate of the point
+	 * @param y second coordinate of the point
+	 * @return the angle theta of the representation of the given point in polar coordinates
+	 */
+	public static float atan2(float x, float y) {
+		return (float) Math.atan2(y, x);
+	}
+	
+	/**
 	 * Calculate the modulo of 2 numbers, which is the only value x between
 	 * 0 and m which is such that <i>f = m*k + x</i> with k a signed integer.
 	 * <p>This method is different of the % operator in that it will never return
@@ -347,22 +357,6 @@ public class Mathf {
 	 */
 	public static float random() {
 		return RandomHolder.random.nextFloat();
-	}
-	
-	public static float randomGaussian() {
-		return (float) RandomHolder.random.nextGaussian();
-	}
-
-	public static int randomInRange(int min, int max) {
-		return (int) (random()*(max-min)+min);
-	}
-	
-	public static float randomInRange(float min, float max) {
-		return random()*(max-min)+min;
-	}
-	
-	public static float randomAngle() {
-		return random()*TWOPI;
 	}
 	
 	public static Vec2i mod(Vec2i v, Vec2i m) { return new Vec2i(mod(v.x, m.x), mod(v.y, m.y)); }
