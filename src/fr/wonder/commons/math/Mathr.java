@@ -2,6 +2,7 @@ package fr.wonder.commons.math;
 
 import static fr.wonder.commons.math.Mathf.*;
 
+import java.util.List;
 import java.util.Random;
 
 public class Mathr {
@@ -118,6 +119,10 @@ public class Mathr {
 	 */
 	public static float randRange(float min, float max) {
 		return random()*(max-min)+min;
+	}
+	
+	public static <T> T randIn(List<T> list) {
+		return list.get(randRange(0, list.size()));
 	}
 	
 }

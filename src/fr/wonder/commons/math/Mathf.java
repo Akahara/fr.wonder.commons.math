@@ -240,19 +240,6 @@ public class Mathf {
 	}
 	
 	/**
-	 * Return the linear interpolation at t between x and y.
-	 * <p>
-	 * The formula used is <code>(1-t)x+ty</code>
-	 * @param x first value to interpolate with
-	 * @param y second value to interpolate with
-	 * @param t the fraction to interpolate with
-	 * @return the interpolated value
-	 */
-	public static float lerp(float x, float y, float t) {
-		return (1-t)*x+t*y;
-	}
-	
-	/**
 	 * Calculates a cosine using a pre-calculated sine table, precision is not
 	 * perfect but the maximum delta between this method and Math.cos is around .018
 	 * <br>This method is quite faster than using Math.cos though.
@@ -358,6 +345,23 @@ public class Mathf {
 	public static float random() {
 		return RandomHolder.random.nextFloat();
 	}
+	
+	/**
+	 * Return the linear interpolation at t between x and y.
+	 * <p>
+	 * The formula used is <code>(1-t)x+ty</code>
+	 * @param x first value to interpolate with
+	 * @param y second value to interpolate with
+	 * @param t the fraction to interpolate with
+	 * @return the interpolated value
+	 */
+	public static float lerp(float x, float y, float t) {
+		return (1-t)*x+t*y;
+	}
+
+	public static Vec2 lerp(Vec2 a, Vec2 b, float x) { return new Vec2((b.x-a.x)*x+a.x, (b.y-a.y)*x+a.y); }
+	public static Vec3 lerp(Vec3 a, Vec3 b, float x) { return new Vec3((b.x-a.x)*x+a.x, (b.y-a.y)*x+a.y, (b.z-a.z)*x+a.z); }
+	public static Vec4 lerp(Vec4 a, Vec4 b, float x) { return new Vec4((b.x-a.x)*x+a.x, (b.y-a.y)*x+a.y, (b.z-a.z)*x+a.z, (b.w-a.w)*x+a.w); }
 	
 	public static Vec2i mod(Vec2i v, Vec2i m) { return new Vec2i(mod(v.x, m.x), mod(v.y, m.y)); }
 	public static Vec2i mod(Vec2i v, int m) { return new Vec2i(mod(v.x, m), mod(v.y, m)); }
